@@ -5,7 +5,7 @@ const create = async (stage,x) => {
 
     if ( stage === 'employee'){
         const { fName , lName , title , manager } = x;
-        const manager_id = await knex.raw(`select id from employee where id = "${manager}" `).then(res=>console.log(res[0][0]['id']));
+        const manager_id = await knex.raw(`select id from employee where id = ${parseInt(manager)} `).then(res=>res[0][0]['id']);
         await knex.raw(`insert into employee ( first_name , last_name , role_id , manager_id ) values ( "${fName}" , "${lName}" , ${parseInt(title)} , ${parseInt(manager_id)} )`)
     } else if ( stage === 'department') {
         await knex.raw(`insert into department (name) values ( '${x}' )`);

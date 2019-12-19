@@ -63,10 +63,18 @@ const createTables = async () => {
 
 }
 
+const checkForTables = async () => {
+  const a = await knex.raw('show tables').then(res=>res[0])
+  if (a.length > 0){
+    return
+  } else {
+    await createTables();
+  }
+}
 
 const initdb = async () => {
-    await dropTables();
-    await createTables();
+  // await dropTables();
+  await checkForTables()
 }
 
 
